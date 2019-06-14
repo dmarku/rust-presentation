@@ -22,3 +22,17 @@ fn main() {
     println!("Hello audience");
 }
 ```
+
+# Creative Coding Libraries
+
+- Piston: game engine
+- Nannou: "Creative Coding" framework
+
+# Nannou
+
+<https://nannou.cc>
+
+- `nannou::sketch(view)` for simple drawing
+- `nannou::app(model)` for game loop-style
+
+- documentation is lacking in most places
