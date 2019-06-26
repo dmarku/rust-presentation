@@ -8,17 +8,18 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js//css/reset.css">
   <link rel="stylesheet" href="reveal.js//css/reveal.css">
-  <style type="text/css">
+  <style>
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+  <style>
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -28,14 +29,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -44,9 +47,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -78,7 +81,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="reveal.js//css/theme/black.css" id="theme">
+  <link rel="stylesheet" href="reveal.js//css/theme/league.css" id="theme">
   <!-- Printing and PDF exports -->
   <script>
     var link = document.createElement( 'link' );
@@ -97,31 +100,126 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="title-slide">
   <h1 class="title">Rust</h1>
-  <p class="subtitle">An Introduction for Creative Coding</p>
+  <p class="subtitle">An Introduction for Creative Coding II</p>
   <p class="author">Markus Dittmann</p>
   <p class="date">12.06.2019</p>
 </section>
 
-<section id="test-1-2-3" class="slide level1">
-<h1>Test 1-2-3</h1>
+<section id="rust" class="title-slide slide level1"><h1>Rust?</h1><blockquote>
+<p>Rust is a systems programming language focused on three goals: <strong>safety, speed, and concurrency</strong>.</p>
+</blockquote>
+<p><a href="https://doc.rust-lang.org/1.8.0/book/README.html" class="uri">https://doc.rust-lang.org/1.8.0/book/README.html</a></p>
 <ul>
-<li>slides</li>
-<li>with content</li>
-<li>really cool things</li>
+<li>compiled language</li>
+<li>no garbage collector</li>
+<li>no runtime</li>
+</ul></section>
+<section><section id="but-there-is-c" class="title-slide slide level1" data-background-image="Cthulhu.png"><h1>But there is C?</h1><ul>
+<li><strong>1972</strong>; ANSI C 1989</li>
+<li>porting Unix assembly to PDP-11</li>
+<li>assembly wasn’t portable and B was slow</li>
+</ul></section><section id="so-what" class="slide level2">
+<h2>So What?</h2>
+<ul>
+<li>~40 years of segmentation faults</li>
+<li>static typing, but weak</li>
 </ul>
-</section>
-<section id="hey-ho" class="slide level1">
-<h1>Hey ho!</h1>
-<p>Hello, I will become a presentation.</p>
-<p><strong>Magic!</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode .rs"><code class="sourceCode rust"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">fn</span> main() <span class="op">{</span></a>
-<a class="sourceLine" id="cb1-2" title="2">    <span class="pp">println!</span>(<span class="st">&quot;Hello audience&quot;</span>);</a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="op">}</span></a></code></pre></div>
-</section>
+<div class="sourceCode" id="cb1"><pre class="sourceCode .c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="dt">float</span> f = <span class="fl">32.525</span>;</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="dt">int</span> x = f; <span class="co">// that becomes a 3</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">enum</span> Direction = {</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    UP, DOWN, LEFT, RIGHT</span>
+<span id="cb1-6"><a href="#cb1-6"></a>};</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="kw">enum</span> Direction d = <span class="dv">8</span>;</span></code></pre></div>
+</section></section>
+<section><section id="enter-rust" class="title-slide slide level1" data-background-image="rust_logo.svg"><h1>Enter Rust</h1><ul>
+<li>*07.07.2010</li>
+<li>Graydon Hoare at Mozilla Research</li>
+<li>for Servo browser engine</li>
+<li>memory safety</li>
+<li>concurrency</li>
+</ul></section><section id="ecosystem" class="slide level2">
+<h2>Ecosystem</h2>
+<ul>
+<li>Cargo &amp; <a href="https://crates.io/">crates.io</a>: build system, package repo</li>
+<li>Rustdoc &amp; <a href="https://docs.rs/">docs.rs</a>: Markdown docs</li>
+<li>official <a href="https://doc.rust-lang.org/1.8.0/book/README.html">Rust Book</a></li>
+<li>Extension for VS Code</li>
+</ul>
+</section><section id="in-the-wild" class="slide level2">
+<h2>In the Wild</h2>
+<ul>
+<li>Firefox “Quantum” (FF 57, 2017)</li>
+<li>Web Assembly</li>
+<li>Redox OS</li>
+<li>at Dropbox, on servers</li>
+</ul>
+</section></section>
+<section id="getting-started" class="title-slide slide level1"><h1>Getting Started</h1><p><a href="https://play.rust-lang.org/">try in a browser</a></p>
+<p>Linux/MacOS:</p>
+<pre><code>(sudo apt install curl build-essential)
+curl https://sh.rustup.rs -sSf | sh
+source $HOME/.cargo/env
+cargo new hello-world
+cd hello-world
+cargo run</code></pre></section>
+<section><section id="features" class="title-slide slide level1"><h1>Features</h1></section><section id="hey-ho" class="slide level2">
+<h2>Hey ho!</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode .rs"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">let</span> names = <span class="op">[</span><span class="st">&quot;Angela&quot;</span>, <span class="st">&quot;Markus&quot;</span>, <span class="st">&quot;Markus&quot;</span>, <span class="st">&quot;Valeria&quot;</span>, <span class="st">&quot;Franzi&quot;</span>, <span class="st">&quot;Simon&quot;</span>, <span class="st">&quot;Phil&quot;</span><span class="op">]</span>;</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">let</span> last = names<span class="op">[]</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="pp">println!</span>(<span class="st">&quot;Hello audience&quot;</span>);</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="op">}</span></span></code></pre></div>
+</section><section id="primitive-data-types" class="slide level2">
+<h2>Primitive Data Types</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>bool</code></td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr class="even">
+<td><code>char</code></td>
+<td>Unicode character</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block"></div>
+</section><section id="nested-comments" class="slide level2">
+<h2>Nested Comments!</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode .rs"><code class="sourceCode rust"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">// this part doesn&#39;t work, leave it out for now</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">/*</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">/* explaining what that part of the code does */</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">fn do_weird_things(a: i32, b: bool) {</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">    if b {</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">        a * 3</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">    }</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">    else {</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">        a / 2</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">    }</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">}</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">*/</span></span></code></pre></div>
+</section></section>
+<section id="creative-coding-libraries" class="title-slide slide level1"><h1>Creative Coding Libraries</h1><ul>
+<li>Piston: game engine</li>
+<li>Nannou: “Creative Coding” framework</li>
+</ul></section>
+<section id="nannou" class="title-slide slide level1"><h1>Nannou</h1><p><a href="https://nannou.cc" class="uri">https://nannou.cc</a></p>
+<ul>
+<li><p><code>nannou::sketch(view)</code> for simple drawing</p></li>
+<li><p><code>nannou::app(model)</code> for game loop-style</p></li>
+<li><p>documentation is lacking in most places</p></li>
+</ul></section>
     </div>
   </div>
 
-  <script src="reveal.js//lib/js/head.min.js"></script>
   <script src="reveal.js//js/reveal.js"></script>
 
   <script>
